@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "br.zupedu.ot4";
+option java_outer_classname = "Analises";
+option objc_class_prefix = "HLW";
+
+package br.zupedu.ot4;
+
+service AnalisesService {
+  rpc send (AnalisesRequest) returns (AnalisesReply) {}
+}
+
+message AnalisesRequest {
+  string name = 1;
+}
+
+message AnalisesReply {
+  string message = 1;
+}

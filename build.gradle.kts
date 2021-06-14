@@ -48,6 +48,8 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("io.micronaut:micronaut-http-client")
+//    implementation("br.com.caelum.stella:caelum-stella-core:2.1.2")
+    implementation("org.hibernate:hibernate-validator:6.1.6.Final")
 
 }
 

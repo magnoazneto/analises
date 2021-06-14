@@ -8,13 +8,21 @@ option objc_class_prefix = "HLW";
 package br.zupedu.ot4;
 
 service AnalisesService {
-  rpc send (AnalisesRequest) returns (AnalisesReply) {}
+  rpc analisaRestricao (AnaliseRequest) returns (AnaliseResponse) {}
 }
 
-message AnalisesRequest {
-  string name = 1;
+message AnaliseRequest {
+  string documento = 1;
+  string nome = 2;
+  int64 idProposta = 3;
 }
 
-message AnalisesReply {
-  string message = 1;
+message AnaliseResponse {
+  enum ResultadoAnalise {
+    RESULTADO_DESCONHECIDO = 0;
+    COM_RESTRICAO = 1;
+    SEM_RESTRICAO = 2;
+  }
+  ResultadoAnalise resultadoAnalise = 4;
+  int64 idProposta = 5;
 }

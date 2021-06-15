@@ -1,6 +1,11 @@
 micronaut:
   application:
     name: analises
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
 datasources:
   default:
     url: ${DATA_BASE_URL:`jdbc:postgresql://localhost`}:${DATA_BASE_PORT:5431}/${DATA_BASE_NAME:analises_db}

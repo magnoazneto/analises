@@ -50,6 +50,8 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-client")
 //    implementation("br.com.caelum.stella:caelum-stella-core:2.1.2")
     implementation("org.hibernate:hibernate-validator:6.1.6.Final")
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi:2.5.0")
+    implementation("io.swagger.core.v3:swagger-annotations")
 
 }
 

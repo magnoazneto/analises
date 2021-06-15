@@ -10,15 +10,15 @@ import javax.validation.constraints.Positive
 data class SolicitacaoRequest(
     @field:CPForCNPJ val documento: String,
     @field:NotBlank val nome: String,
-    @field:Positive val ipProposta: Long
+    @field:Positive val idProposta: Long
 ) {
     constructor(request: AnaliseRequest) : this(
         documento = request.documento,
         nome = request.nome,
-        ipProposta = request.idProposta
+        idProposta = request.idProposta
     )
 
     fun toModel(status: StatusRestricao): Analise {
-        return Analise(documento, nome, ipProposta, status)
+        return Analise(documento, nome, idProposta, status)
     }
 }

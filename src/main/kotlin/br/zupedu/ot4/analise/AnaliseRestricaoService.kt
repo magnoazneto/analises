@@ -5,6 +5,7 @@ import br.zupedu.ot4.AnaliseResponse.*
 import br.zupedu.ot4.analise.kafka.AnaliseKafkaClient
 import br.zupedu.ot4.analise.kafka.PropostaKafkaMessage
 import io.micronaut.validation.Validated
+import org.slf4j.LoggerFactory
 import javax.inject.Inject
 import javax.inject.Singleton
 import javax.validation.Valid
@@ -15,8 +16,11 @@ class AnaliseRestricaoService(
     @Inject val analiseRepository: AnaliseRepository,
     @Inject val kafkaClient: AnaliseKafkaClient
 ) {
+    private val LOGGER = LoggerFactory.getLogger(this::class.java)
+
     fun novaAnalise(@Valid request: SolicitacaoRequest) : AnaliseResponse {
         val resultadoRestricao = existeRestricao(request.documento)
+        LOGGER.info("Proposta de id ${request.idProposta} analisada como $resultadoRestricao")
         val novaAnalise: Analise = request.toModel(resultadoRestricao).let { analiseRepository.save(it) }
         if(resultadoRestricao == StatusRestricao.SEM_RESTRICAO){
             kafkaClient.enviarPropostaElegivel(novaAnalise.ipProposta, PropostaKafkaMessage(novaAnalise))

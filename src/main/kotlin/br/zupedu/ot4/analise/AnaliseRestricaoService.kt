@@ -2,6 +2,8 @@ package br.zupedu.ot4.analise
 
 import br.zupedu.ot4.AnaliseResponse
 import br.zupedu.ot4.AnaliseResponse.*
+import br.zupedu.ot4.analise.kafka.AnaliseKafkaClient
+import br.zupedu.ot4.analise.kafka.PropostaKafkaMessage
 import io.micronaut.validation.Validated
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -10,12 +12,15 @@ import javax.validation.Valid
 @Validated
 @Singleton
 class AnaliseRestricaoService(
-    @Inject val analiseRepository: AnaliseRepository
+    @Inject val analiseRepository: AnaliseRepository,
+    @Inject val kafkaClient: AnaliseKafkaClient
 ) {
     fun novaAnalise(@Valid request: SolicitacaoRequest) : AnaliseResponse {
         val resultadoRestricao = existeRestricao(request.documento)
-        val novaAnalise = request.toModel(resultadoRestricao).let { analiseRepository.save(it) }
-
+        val novaAnalise: Analise = request.toModel(resultadoRestricao).let { analiseRepository.save(it) }
+        if(resultadoRestricao == StatusRestricao.SEM_RESTRICAO){
+            kafkaClient.enviarPropostaElegivel(novaAnalise.ipProposta, PropostaKafkaMessage(novaAnalise))
+        }
         return newBuilder()
             .setIdProposta(novaAnalise.ipProposta)
             .setResultadoAnalise(novaAnalise.status.paraTipoGrpc())

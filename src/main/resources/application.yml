@@ -3,10 +3,12 @@ micronaut:
     name: analises
 datasources:
   default:
-    url: jdbc:postgresql://${DATA_BASE_URL:localhost}:${DATA_BASE_PORT:5431}/${DATA_BASE_NAME:analises_db}
+    url: ${DATA_BASE_URL:`jdbc:postgresql://localhost`}:${DATA_BASE_PORT:5431}/${DATA_BASE_NAME:analises_db}
     driverClassName: org.postgresql.Driver
     username: '${DATA_BASE_USER:postgres}'
     password: '${DATA_BASE_PASSWORD:root}'
     dialect: POSTGRES
 jpa.default.properties.hibernate.hbm2ddl.auto: create-drop
-#kafka.bootstrap.servers: localhost:9092
+kafka:
+  bootstrap:
+    servers: '${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}'

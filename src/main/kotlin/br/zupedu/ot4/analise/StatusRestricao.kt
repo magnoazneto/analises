@@ -7,7 +7,8 @@ enum class StatusRestricao {
         override fun paraTipoGrpc(): AnaliseResponse.ResultadoAnalise {
             return AnaliseResponse.ResultadoAnalise.COM_RESTRICAO
         }
-    }, SEM_RESTRICAO {
+    },
+    SEM_RESTRICAO {
         override fun paraTipoGrpc(): AnaliseResponse.ResultadoAnalise {
             return AnaliseResponse.ResultadoAnalise.SEM_RESTRICAO
         }

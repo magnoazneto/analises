@@ -18,13 +18,20 @@ class AnaliseRestricaoService(
 ) {
     private val LOGGER = LoggerFactory.getLogger(this::class.java)
 
+    /**
+     * Realiza uma nova Analise de Restrição.
+     * @param request A request no padrão do sistema. Vai ser validada.
+     * @return o objeto de resposta do tipo Protobuf
+     */
     fun novaAnalise(@Valid request: SolicitacaoRequest) : AnaliseResponse {
         val resultadoRestricao = existeRestricao(request.documento)
         LOGGER.info("Proposta de id ${request.idProposta} analisada como $resultadoRestricao")
+
         val novaAnalise: Analise = request.toModel(resultadoRestricao).let { analiseRepository.save(it) }
         if(resultadoRestricao == StatusRestricao.SEM_RESTRICAO){
             kafkaClient.enviarPropostaElegivel(novaAnalise.ipProposta, PropostaKafkaMessage(novaAnalise))
         }
+
         return newBuilder()
             .setIdProposta(novaAnalise.ipProposta)
             .setResultadoAnalise(novaAnalise.status.paraTipoGrpc())
@@ -33,6 +40,7 @@ class AnaliseRestricaoService(
 
     /**
      * Apenas para simular uma consulta de restrição por Documento
+     * @return um StatusRestricao no padrão do sistema
      */
     private fun existeRestricao(documento: String): StatusRestricao {
         return if (documento[0].toInt() % 2 == 0) {

@@ -49,10 +49,18 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     testImplementation("io.micronaut:micronaut-http-client")
-//    implementation("br.com.caelum.stella:caelum-stella-core:2.1.2")
+    runtimeOnly("com.h2database:h2")
     implementation("org.hibernate:hibernate-validator:6.1.6.Final")
     annotationProcessor("io.micronaut.openapi:micronaut-openapi:2.5.0")
     implementation("io.swagger.core.v3:swagger-annotations")
+    testImplementation("org.mockito:mockito-core:3.8.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.4.0-M1")
+    // Para uso do Embedded Kafka:
+//    testImplementation("org.apache.kafka:kafka-clients:2.3.1:test")
+//    testImplementation("org.apache.kafka:kafka_2.12:2.3.1")
+//    testImplementation("org.apache.kafka:kafka_2.12:2.3.1:test")
+    // Para uso de Kafka Containers
+//    testImplementation("org.testcontainers:kafka:1.15.3")
 
 }
 

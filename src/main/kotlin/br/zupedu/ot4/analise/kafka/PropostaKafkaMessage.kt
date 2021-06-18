@@ -7,7 +7,7 @@ data class PropostaKafkaMessage(
     val documento: String,
     val nome: String,
     val statusRestricao: StatusRestricao,
-    val ipProposta: Long
+    val idProposta: Long
 ) {
     constructor(analise: Analise) : this(
         analise.documento,

@@ -1,7 +1,0 @@
-#kafka:
-#  bootstrap:
-#    servers: localhost:${random.port}
-#  embedded:
-#    enabled: true
-#    topics:
-#      - propostas-elegiveis

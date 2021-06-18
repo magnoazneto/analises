@@ -51,8 +51,8 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-client")
     runtimeOnly("com.h2database:h2")
     implementation("org.hibernate:hibernate-validator:6.1.6.Final")
-    annotationProcessor("io.micronaut.openapi:micronaut-openapi:2.5.0")
-    implementation("io.swagger.core.v3:swagger-annotations")
+//    annotationProcessor("io.micronaut.openapi:micronaut-openapi:2.5.0")
+//    implementation("io.swagger.core.v3:swagger-annotations")
     testImplementation("org.mockito:mockito-core:3.8.0")
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.0-M1")
     // Para uso do Embedded Kafka:
